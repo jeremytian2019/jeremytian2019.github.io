@@ -208,7 +208,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">量化投资与机器学习</p>
       
   </div>
 
@@ -527,6 +527,21 @@ Statistical Inference, 2nd
 
       
       
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
       
 
       
@@ -617,7 +632,7 @@ Statistical Inference, 2nd
               <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Jeremy Tian">
             
               <p class="site-author-name" itemprop="name">Jeremy Tian</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">学习、纪录、分享</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -672,25 +687,25 @@ Statistical Inference, 2nd
                   <span class="links-of-author-item">
                     <a href="https://github.com/jeremytian2019" target="_blank" title="GitHub">
                       
-                        <i class="fa fa-fw fa-github"></i></a>
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
                   </span>
                 
                   <span class="links-of-author-item">
                     <a href="https://www.zhihu.com/people/tian-jing-79-12/activities" target="_blank" title="知乎">
                       
-                        <i class="fa fa-fw fa-globe"></i></a>
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="tj2152410101" target="_blank" title="Weixin">
+                    <a href="tj2152410101" target="_blank" title="微信">
                       
-                        <i class="fa fa-fw fa-weixin"></i></a>
+                        <i class="fa fa-fw fa-weixin"></i>微信</a>
                   </span>
                 
                   <span class="links-of-author-item">
                     <a href="2250841734@qq.com" target="_blank" title="E-Mail">
                       
-                        <i class="fa fa-fw fa-envelope"></i></a>
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
                 
             </div>
@@ -819,6 +834,12 @@ Statistical Inference, 2nd
 
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 
   </div>
@@ -1310,6 +1331,30 @@ Statistical Inference, 2nd
 
   <script>
     
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Wechat,Weibo,Douban,QQZone,Linkedin,Evernote,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
     
   </script>
 
