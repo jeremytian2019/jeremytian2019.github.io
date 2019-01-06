@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[第一篇博客]]></title>
-    <url>%2F2019%2F01%2F04%2F%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%2F</url>
-    <content type="text"><![CDATA[hello woeld]]></content>
-      <tags>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[第五篇博客]]></title>
-    <url>%2F2019%2F01%2F02%2F%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2%2F</url>
-    <content type="text"><![CDATA[统计学书籍推荐：统计计算 第二版 金融工程中的蒙特卡罗方法 Monte Carlo Statistical Methods，2nd 仿真与蒙特卡罗方法及其在金融与MCMC中的应用 数理统计概率论与数理统计 数理统计与数据分析 Statistical Inference, 2nd 贝叶斯统计 回归与计量应用回归分析 高级计量经济学 洪永淼 统计模型:理论与实践 时间序列分析 金融市场中的统计模型与方法 金融时间序列分析 数值计算与优化凸优化 最优化 机器学习统计学习基础 机器学习，周志华 深度学习 强化学习 百度地址]]></content>
+    <title><![CDATA[实证资产定价与机器学习]]></title>
+    <url>%2F2019%2F01%2F06%2F%E5%AE%9E%E8%AF%81%E8%B5%84%E4%BA%A7%E5%AE%9A%E4%BB%B7%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[One of our central themes is that if assets are priced rationally,variables that are related to average returns, such as size and book-to-market equity, must proxy for sensitivity to common (shared and thus undiversifiable) risk factors in returns. In such regressions, a well-specified asset-pricing model produces intercepts that are indistinguishable from 0 [Merton (1973)]. The estimated intercepts provide a simple return metric and a formal test of how well different combinations of the common factors capture the cross section of average returns. —— Fama and French (1993)]]></content>
       <categories>
-        <category>资料推送</category>
+        <category>机器学习</category>
       </categories>
       <tags>
-        <tag>统计学，机器学习</tag>
+        <tag>资产定价</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
 </search>

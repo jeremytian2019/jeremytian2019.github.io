@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-04T09:41:27.712Z</updated>
+  <updated>2019-01-06T13:44:31.291Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,53 +17,29 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>第一篇博客</title>
-    <link href="http://yoursite.com/2019/01/04/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2019/01/04/第一篇博客/</id>
-    <published>2019-01-04T09:40:47.000Z</published>
-    <updated>2019-01-04T09:41:27.712Z</updated>
+    <title>实证资产定价与机器学习</title>
+    <link href="http://yoursite.com/2019/01/06/%E5%AE%9E%E8%AF%81%E8%B5%84%E4%BA%A7%E5%AE%9A%E4%BB%B7%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2019/01/06/实证资产定价与机器学习/</id>
+    <published>2019-01-06T12:50:19.000Z</published>
+    <updated>2019-01-06T13:44:31.291Z</updated>
     
-    <content type="html"><![CDATA[<p>hello woeld</p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>One of our central themes is that if assets are priced rationally,variables that are related to average returns, such as size and book-to-market equity, must proxy for sensitivity to common (shared and thus undiversifiable) risk factors in returns.  </p><p>In such regressions, a well-specified asset-pricing model produces intercepts that are indistinguishable from 0 [Merton (1973)]. The estimated intercepts provide a simple return metric and a formal test of how well different combinations of the common factors capture the cross section of average returns.  </p><p>   <strong>—— Fama and French (1993)</strong></p></blockquote><p><img src="502.jpg" alt="我的图像"></p><img src="/2019/01/06/实证资产定价与机器学习/502.jpg">]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;hello woeld&lt;/p&gt;
-
+        &lt;blockquote&gt;&lt;p&gt;One of our central themes is that if assets are priced rationally,variables that are related to average returns, such as size
       
     
     </summary>
     
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="资产定价" scheme="http://yoursite.com/tags/%E8%B5%84%E4%BA%A7%E5%AE%9A%E4%BB%B7/"/>
     
       <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第五篇博客</title>
-    <link href="http://yoursite.com/2019/01/02/%E7%AC%AC%E4%BA%94%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2019/01/02/第五篇博客/</id>
-    <published>2019-01-02T09:30:09.000Z</published>
-    <updated>2019-01-02T18:02:23.157Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="统计学书籍推荐："><a href="#统计学书籍推荐：" class="headerlink" title="统计学书籍推荐："></a>统计学书籍推荐：</h1><pre><code>统计计算 第二版金融工程中的蒙特卡罗方法Monte Carlo Statistical Methods，2nd仿真与蒙特卡罗方法及其在金融与MCMC中的应用</code></pre><h1 id="数理统计"><a href="#数理统计" class="headerlink" title="数理统计"></a>数理统计</h1><pre><code>概率论与数理统计数理统计与数据分析Statistical Inference, 2nd贝叶斯统计</code></pre><h1 id="回归与计量"><a href="#回归与计量" class="headerlink" title="回归与计量"></a>回归与计量</h1><pre><code>应用回归分析高级计量经济学 洪永淼统计模型:理论与实践时间序列分析金融市场中的统计模型与方法金融时间序列分析</code></pre><h1 id="数值计算与优化"><a href="#数值计算与优化" class="headerlink" title="数值计算与优化"></a>数值计算与优化</h1><pre><code>凸优化最优化</code></pre><h1 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h1><pre><code>统计学习基础机器学习，周志华深度学习强化学习</code></pre><p><a href="http://www.baidu.com/" title="baidu" target="_blank" rel="noopener">百度地址</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;统计学书籍推荐：&quot;&gt;&lt;a href=&quot;#统计学书籍推荐：&quot; class=&quot;headerlink&quot; title=&quot;统计学书籍推荐：&quot;&gt;&lt;/a&gt;统计学书籍推荐：&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;统计计算 第二版
-金融工程中的蒙特卡罗方法
-Monte Carlo Stat
-      
-    
-    </summary>
-    
-      <category term="资料推送" scheme="http://yoursite.com/categories/%E8%B5%84%E6%96%99%E6%8E%A8%E9%80%81/"/>
-    
-    
-      <category term="统计学，机器学习" scheme="http://yoursite.com/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%EF%BC%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
