@@ -133,13 +133,18 @@
 <meta property="og:site_name" content="JeremyTian&#39;s Blog">
 <meta property="og:description" content="One of our central themes is that if assets are priced rationally,variables that are related to average returns, such as size and book-to-market equity, must proxy for sensitivity to common (shared an">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/502.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/502.jpg">
-<meta property="og:updated_time" content="2019-01-06T13:44:31.291Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img7.gif">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img1.gif">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img2.gif">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img3.gif">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img4.gif">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img5.gif">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img6.gif">
+<meta property="og:updated_time" content="2019-01-07T16:38:23.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实证资产定价与机器学习">
 <meta name="twitter:description" content="One of our central themes is that if assets are priced rationally,variables that are related to average returns, such as size and book-to-market equity, must proxy for sensitivity to common (shared an">
-<meta name="twitter:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/502.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/06/实证资产定价与机器学习/img7.gif">
 
 
 
@@ -453,8 +458,72 @@
 <p>In such regressions, a well-specified asset-pricing model produces intercepts that are indistinguishable from 0 [Merton (1973)]. The estimated intercepts provide a simple return metric and a formal test of how well different combinations of the common factors capture the cross section of average returns.  </p>
 <p>   <strong>—— Fama and French (1993)</strong></p>
 </blockquote>
-<p><img src="502.jpg" alt="我的图像"></p>
-<img src="/2019/01/06/实证资产定价与机器学习/502.jpg">
+<h3 id="序言"><a href="#序言" class="headerlink" title="序言"></a><font color="#FF0000"><u>序言</u></font></h3><p>有效测度资产风险溢价一直以来是实证资产定价领域研究的核心问题。与传统计量方法相比，机器学习方法的运用已经引起了学界和业界越来越多的关注。本文介绍了Gu,Kelly和Xiu三位学者在芝加哥大学暑期学校上报告的一项研究<sup><a href="#fn_1" id="reffn_1">1</a></sup>。这项研究对<font color="#3300FF"><u><strong>广义线性模型、降维方法、提升树、随机森林以及神经网络</strong></u></font>等代表性学习方法在预测风险溢价时相对传统预测方法的绩效进行了系统性的比较分析。 </p>
+<h4 id="Why"><a href="#Why" class="headerlink" title="Why?"></a>Why?</h4><p>三个方面的原因使得机器学习方法适用于金融资产预测领域：</p>
+<ul>
+<li><p>描述和解释不同资产横截面上预期收益差异以及整体权益市场风险溢价的动态变化是实证资产定价领域研究的两条主线。测度资产风险溢价本质是个预测问题(the risk premium is the conditional expectation of a future realized excess return)，机器学习方法专门处理这些特定的任务。</p>
+</li>
+<li><p>可用于预测风险溢价的候选条件变量集很大（高维）。近几十年来学术研究中已经提出了数百个具有收益预测能力的特征因子<sup><a href="#fn_2" id="reffn_2">2</a></sup><sup><a href="#fn_3" id="reffn_3">3</a></sup>以及数十个宏观经济因子<sup><a href="#fn_4" id="reffn_4">4</a></sup>。此外，预测因子之间通常高度相关。传统预测方法在面对高维的特征变量以及变量高相关性时显得无能为力。通过变量选择与降维技术，机器学习很适合解决这些问题。</p>
+</li>
+<li><p>模糊的函数形式。特征因子与目标风险溢价之间的关系是线性的吗？如果是非线性的，我们应该采用何种形式？我们需要考虑因子之间的交互效应吗？这些模型设定的问题没有较多的理论指导，不同的机器学习方法设计不同的非线性模式，通过参数惩罚和保守的模型选择标准可以用来避免过拟合以及错误发现。</p>
+</li>
+</ul>
+<h4 id="Main-Findings"><a href="#Main-Findings" class="headerlink" title="Main Findings"></a>Main Findings</h4><p>文中收集了美国市场近60年的数据（1957-2016）,94个股票特征因子以及与8个宏观经济因子的交互项以及74个行业哑变量因子形成了总共900多个信号因子作为模型输入与Size、BM和MOM三因子面板回归作为比较基准得出以下几个实证发现：</p>
+<ul>
+<li><p>三因子基准模型样本外月度\(R^2\)为0.16%，当使用900+的信号来进行面板回归时，样本外为负，毫无意外，OLS在处理高维问题时无效。</p>
+</li>
+<li><p>当线性模型中考虑正则化或者降维方法时，能够解决OLS估计无效的问题。例如引入弹性网惩罚能够获得样本外正的\(R^2\)为0.09%,PCA或者PLS降维分别能获得样本外\(R^2\)为0.28%和0.18%,这说明引入正则化或者采取降维的高维回归至少能获得三因子基准模型相当的绩效，只要过度参数化得到控制。</p>
+</li>
+<li><p>引入非线性能很大程度上提升预测。基于树的方法和神经网络能够获得样本外月度\(R^2\)为0.27%~0.39%，基于样条平滑的广义线性模型（没有考虑交互项)并不能稳定的超过线性模型，这说明考虑预测因子之间的交互效应是非线性设定的一个重要方面。</p>
+</li>
+<li><p>浅层学习优于深度学习。文中设定了1~5个隐含层的神经网络，实证发现3个隐层的神经网络模型表现最好，随后绩效开始下降。此外，提升树和随机森林中树深度较浅时模型表现较号（平均不超过6个叶子节点），这可能反应了金融预测中数据较低的信号比这一事实。</p>
+</li>
+<li><p>当预测组合收益时非线性方法相对于线性模型的绩效提升效果更明显。例如三因子OLS模型预测标普500组合收益的\(R^2\)为-0.11%,广义线性模型的预测\(R^2\)为0.86%，而基于树方法和神经网络产生的预测\(R^2\)在1.39%到1.80%之间，预测size,value,investment,profitability以及momentum等特征因子组合可以得到类似的结果。</p>
+</li>
+<li><p>机器学习预测可以大大提升组合的夏普比，例如基于神经网络模型形成的多空组合可以获得2.35的年化夏普比，而三因子基准模型形成的多空组合夏普比仅为0.89。</p>
+</li>
+<li><p>从变量重要性分析来看，最成功的预测因子主要集中于<font color="#3300FF">price trends, liuquidity, volatility</font>三大类，所有的方法都得到类似的结果。</p>
+</li>
+</ul>
+<h3 id="方法描述"><a href="#方法描述" class="headerlink" title="方法描述"></a><font color="#FF0000"><u>方法描述</u></font></h3><h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><p>模型部分在这里不做具体表述，具体可以参考论文中Section2部分，线性模型基本上使用了更为稳健的Huber损失函数。神经网络部分使用ReLU作为激活函数，文中分别拟合了1~5个隐含层的5个网络结构，各隐层神经元数目分别为\(2^n\),n为网络结构中隐层数量。</p>
+<h4 id="绩效评估标准"><a href="#绩效评估标准" class="headerlink" title="绩效评估标准"></a>绩效评估标准</h4><p>文中提出了一个新的评估标准作为预测精度衡量指标，该指标在度量个股收益预测误差时更合理。<br><img src="/2019/01/06/实证资产定价与机器学习/img7.gif"></p>
+<h4 id="数据集划分"><a href="#数据集划分" class="headerlink" title="数据集划分"></a>数据集划分</h4><p>常见样本集划分方式有Fixed,Rolling和Expanding三种方式，本文将整个样本划分为训练集（1957-1974)、验证集（1975-1986）和测试集（1987-2016）三部分，采取Fixed和Expanding相结合形式，即每年重新训练一次模型，训练集增加最近12个月数据，验证集向前滚动一年以保持验证集大小不变。</p>
+<h3 id="实证部分"><a href="#实证部分" class="headerlink" title="实证部分"></a><font color="#FF0000"><u>实证部分</u></font></h3><h4 id="单个股票的横截面"><a href="#单个股票的横截面" class="headerlink" title="单个股票的横截面"></a>单个股票的横截面</h4><p>文中比较了13个模型的结果（就样本外\(R^2\)来说），其中OLS线性模型(包含交互项协变量）、ENet、GLM(group lasso)、GBRT模型损失函数使用更稳健的Huber损失而非平方损失，神经网络模型分别用了1~5个隐含层（NN1,…,NN5）。</p>
+<p>下表显示使用参数压缩以及降维方法，预测绩效相对传统估计能获得提升。而RF和GBRT树方法以及神经网络的绩效提升更加明显，例如神经网络能均能获得0.35%以上的\(R_{oos}^2\)。此外，下表还展示了不同方法在规模大小不同的两个子样本中的预测结果，树方法和神经网络在大股票样本中特别成功，\(R_{oos} ^2\)为0.53%~0.72%。</p>
+<img src="/2019/01/06/实证资产定价与机器学习/img1.gif">
+<p>下图展示了不同模型在每个重估日的模型复杂度。ENet模型在测试样本早期选择的特征因子数，不超过5个，2000年后，选择的特征因子数基本上稳定在20~40个的范围内。PCA典型的选择20~40个成分做预测，而PLS早期并不能找到一个可靠的成分，最终选择了3-6个成分。广义线性模型仅仅使用单个特征因子的样条函数，并没有考虑特征因子之间的交互效应，因此并没有带来明显的增量信息（相对于线性模型)，相比ENet模型，其倾向于选择更多的特征。随机森林倾向于选择浅层树作为基学习器，叶子节点的树平均为1~5个，而GBRT选择20~30个因子来划分特征空间。对于神经网络来说，“深度”的好处并没有得到体现，4~5个隐含层的神经网络表现要差于三个隐含层的网络结构。</p>
+<img src="/2019/01/06/实证资产定价与机器学习/img2.gif">
+<h4 id="变量重要性分析"><a href="#变量重要性分析" class="headerlink" title="变量重要性分析"></a>变量重要性分析</h4><p>下图展示了20个重要性靠前的特征因子在模型中的相对重要性排序。基本上所有的模型在关于最有影响力的因子上达成了一致。重要性最高的因子集中在四大类：<font color="#3300FF"><strong>价格趋势、流动性、波动率与估值比</strong></font>。此外，正则化的线性模型与降维方法高度偏向于动量与反转因子。而树方法和神经网络从更广的特征集中提取预测信息。</p>
+<img src="/2019/01/06/实证资产定价与机器学习/img3.gif">
+<h4 id="组合预测"><a href="#组合预测" class="headerlink" title="组合预测"></a>组合预测</h4><p>上文分析比较了不同方法用于单个股票的预测，本节展示了不同方法预测组合收益的结果。组合水平的收益预测间接评估了不同模型的稳健性，也与组合构建环节更加相关。组合分析既可以针对预先设定的组合，例如标普500成分股组合，FF五因子形成的特征因子组合。在这里直接展示利用机器学习预测自下而上形成组合的结果。每个月末根据模型预测的个股收益进行排序形成十分位组合，通过某种加权（等权重或者市值加权）计算各个组合收益。</p>
+<p>机器学习组合显示了良好的单调性。神经网络模型显著优于线性模型与树方法。值得注意的是，所有的模型对于非极端分位组合收益的预测比较接近，多空组合收益差表现最好的来自于NN4，其月均收益为3.3%（年化39.0%），月度波动率为4.8%（年化16.6%），样本外年化夏普比为2.35。</p>
+<img src="/2019/01/06/实证资产定价与机器学习/img4.gif">
+<p>下表展示了组合的最大回撤、换手率与风险调整收益等指标。神经网络组合获得了最高的夏普比和更小的回撤，NN3组合最大回撤为14.8%，而三因子基准组合最大回撤为64.7%，随机森林与GBRT最大回撤分别为50.2%与35.2%,此外，NN3最大月损失为10.2%，是所有模型月损失最小的。</p>
+<p>神经网络组合月换手率基本上在110%左右，而树方法和正则化线性模型的换手率更高。这与所有模型更多选择价格趋势相关因子以及动量因子高换手率相关。</p>
+<p>表中还展示了不同方法组合相对于定价模型的风险调整绩效，非线性模型获得更高的alpha和信息比。FF五因子+动量六因子定价模型对线性模型的解释度平均在30%以上，而对于神经网络组合的解释度仅仅在10%左右。</p>
+<img src="/2019/01/06/实证资产定价与机器学习/img5.gif">
+<p>下图分别展示了所有策略多头和空头组合的累计收益，神经网络模型依然是众组合中表现最好的。</p>
+<img src="/2019/01/06/实证资产定价与机器学习/img6.gif">
+<h3 id="笔者点评"><a href="#笔者点评" class="headerlink" title="笔者点评"></a><font color="#FF0000"><u>笔者点评</u></font></h3><ul>
+<li><p>这篇论文是一篇机器学习用于实证资产定价定价领域比较有综合性和代表性的研究。一些研究方法很值得借鉴，比如作者提出的\(R^2\)标准、以及模型比较的Diebold-Mariano检验方法。</p>
+</li>
+<li><p>美国市场是很成熟的市场，文中令人印象深刻的夏普比（超过2）引起不少质疑，由于文中代码并没有开源，一些实证结果很难考究。</p>
+</li>
+<li><p>机器学习方法在人类自然感知领域取得重大成功，但用于金融领域不是简单的套用模型。机器学习强大的拟合能力以及金融低信噪比的事实使得我们需要对整个工作流做出调整。文中对于变量处理的细节没有说明，笔者个人认为机器学习方法用于金融预测领域需要做很多基础性研究（特征工程)，比如一些降噪处理，收益的横截面上去波动性处理等等，这一块可能是成功与否的决定因素。</p>
+</li>
+</ul>
+<blockquote id="fn_1">
+<sup>1</sup>. Shihao Gu, Bryan Kelly and Dacheng Xiu, 2018, Empirical Asset Pricing via Machine Learning.<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_2">
+<sup>2</sup>. Green, Jeremiah, John RM Hand, and X Frank Zhang, 2013, The supraview of return predictive signals, Review of Accounting Studies 18, 692-730.<a href="#reffn_2" title="Jump back to footnote [2] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_3">
+<sup>3</sup>. Harvey, Campbell R, Yan Liu, and Heqing Zhu, 2016, … and the cross-section of expected returns, Review of Financial Studies 29, 5-68.<a href="#reffn_3" title="Jump back to footnote [3] in the text."> &#8617;</a>
+</blockquote>
+<blockquote id="fn_4">
+<sup>4</sup>. Welch, Ivo, and Amit Goyal, 2008, A Comprehensive Look at The Empirical Performance of Equity Premium Prediction, Review of Financial Studies 21, 1455-1508.<a href="#reffn_4" title="Jump back to footnote [4] in the text."> &#8617;</a>
+</blockquote>
 
       
     </div>
@@ -586,8 +655,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -706,6 +784,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Why"><span class="nav-number">1.1.</span> <span class="nav-text">Why?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Main-Findings"><span class="nav-number">1.2.</span> <span class="nav-text">Main Findings</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法描述"><span class="nav-number">2.</span> <span class="nav-text">方法描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型"><span class="nav-number">2.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绩效评估标准"><span class="nav-number">2.2.</span> <span class="nav-text">绩效评估标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据集划分"><span class="nav-number">2.3.</span> <span class="nav-text">数据集划分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实证部分"><span class="nav-number">3.</span> <span class="nav-text">实证部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个股票的横截面"><span class="nav-number">3.1.</span> <span class="nav-text">单个股票的横截面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量重要性分析"><span class="nav-number">3.2.</span> <span class="nav-text">变量重要性分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合预测"><span class="nav-number">3.3.</span> <span class="nav-text">组合预测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#笔者点评"><span class="nav-number">4.</span> <span class="nav-text">笔者点评</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1318,6 +1412,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
