@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-07T17:10:58.684Z</updated>
+  <updated>2019-12-22T12:57:59.601Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一个简单的指数择时回测框架</title>
+    <link href="http://yoursite.com/2019/01/10/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%8B%A9%E6%97%B6%E7%AD%96%E7%95%A5/"/>
+    <id>http://yoursite.com/2019/01/10/一个简单择时策略/</id>
+    <published>2019-01-10T12:50:19.000Z</published>
+    <updated>2019-12-22T12:57:59.601Z</updated>
+    
+    <content type="html"><![CDATA[<p>本项目是一个简单的指数择时回测框架，整个框架结构如下：</p><blockquote><p>backtest/</p><p>-strategy.py</p><p>-broker.py</p><p>-summary.py</p><p>-performance.py  </p></blockquote><p>strategy.py文件定义了策略回测的基类<strong><em>Strategy</em></strong>,策略回测只需要继承这个基类并重写<em>initialize</em>、<em>finish</em>、<em>on_tick</em>方法即可：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">class Strategy(ABC):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    回测引擎的基类</span><br><span class="line">    ===========</span><br><span class="line">    Parameters:</span><br><span class="line">      feed: DataFrame</span><br><span class="line">            指数历史日期数据，包括每日信号，包含列字段为:</span><br><span class="line">            open/high/low/close/signal/preclose</span><br><span class="line">            开盘价/最高价/最低价/收盘价/信号/昨收盘价</span><br><span class="line">            signal:&#123;1,0,-1&#125;, 取值1表示多头，0表示看平或者平仓，-1表示空头</span><br><span class="line">      commission: 每单位头寸交易手续费，默认为2个基点</span><br><span class="line">      slippage: 每单位头寸交易滑点，默认为1个基点</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def __init__(self, feed, benchmark, commission=2, slippage=1):</span><br><span class="line">        # 设置回测起始与结束日期</span><br><span class="line">        start_date = max(feed.index[0], benchmark.index[0])</span><br><span class="line">        end_date = min(feed.index[-1], benchmark.index[-1])</span><br><span class="line">        self.feed = feed[start_date:end_date]</span><br><span class="line">        self._sch = Scheduler() # 调度器对象</span><br><span class="line">        self._logger = logger</span><br><span class="line">        # 设置backtest, broker对象, 以及将自身实例放在调度器的runner_list中</span><br><span class="line">        self._sch.add_runner(self)</span><br><span class="line">        self._sch.add_backtest(self)</span><br><span class="line"></span><br><span class="line">        broker = Broker(commission, slippage)</span><br><span class="line">        self._sch.add_broker(broker)</span><br><span class="line"></span><br><span class="line">        self._sch.add_feed(feed[start_date:end_date])</span><br><span class="line">        self._sch.add_benchmark(benchmark[start_date:end_date])</span><br><span class="line">        self.stat = Summary()     # 创建统计功能</span><br><span class="line">        self._sch.add_hook(self.stat)</span><br><span class="line"></span><br><span class="line">        trade_calc = list(self.feed)  # 回测日历默认为提供数据起始日范围</span><br><span class="line">        self._sch.add_trade_calc(trade_calc)</span><br><span class="line"></span><br><span class="line">    def info(self, msg):</span><br><span class="line">        self._logger.info(msg)</span><br><span class="line"></span><br><span class="line">    def add_hook(self, *agrs, **kwargs):</span><br><span class="line">        self._sch.add_hook(*agrs, **kwargs)</span><br><span class="line"></span><br><span class="line">    def initialize(self):</span><br><span class="line">        &quot;&quot;&quot;在回测开始前的初始化&quot;&quot;&quot;</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def run(self, tick):</span><br><span class="line">        self.on_tick(tick)</span><br><span class="line"></span><br><span class="line">    def start(self):</span><br><span class="line">        self._sch.run()</span><br><span class="line"></span><br><span class="line">    def finish(self):</span><br><span class="line">        &quot;&quot;&quot;在回测结束后调用&quot;&quot;&quot;</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    @abstractmethod</span><br><span class="line">    def on_tick(self, tick):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        回测实例必须实现的方法，并编写自己的交易逻辑</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure><p>在<strong><em>Strategy</em></strong>类实例化的时候会自动创建一个调度器对象<strong><em>Schedule</em></strong>r，然后通过<strong><em>Strategy</em></strong>实例的start方法就能启动调度器，而调度器会根据历史数据的一个一个时间戳不断驱动<strong><em>Strategy</em></strong>, <strong><em>Broker</em></strong>实例被调用。</p><p>为了处理不同实例之间的数据访问隔离，创建了一个<strong><em>Context</em></strong>对象并将其绑定到<strong><em>Strategy</em></strong>, <strong><em>Broker</em></strong>实例上，通过<em>self.ctx</em>访问共享的数据，共享的数据主要包括<em>feed</em>和<em>benchmark</em>对象，即指数的相关历史数据，<em>benchmark</em>为指数历史收盘价格序列，为<em>pd.Series</em>对象，<em>feed</em>为<em>pd.DataFrame</em>格式，包含以下字段：</p><div class="table-container"><table><thead><tr><th>日期索引</th><th>open</th><th>high</th><th>low</th><th>close</th><th>signal</th><th>lastclose</th></tr></thead><tbody><tr><td>2018-12-01</td><td>3450</td><td>3469</td><td>3420</td><td>3457</td><td>1</td><td>3400</td></tr></tbody></table></div><blockquote><p>signal: 交易信号，1代表看多，0代表空仓或者平仓，-1代表看空</p><p>lastclose: 代表昨收盘价价</p></blockquote><p>而这个<strong><em>Context</em></strong>对象也绑定了<strong><em>Strategy</em></strong>, <strong><em>Broker</em></strong>的实例, 这就可以使得数据访问接口统一。<strong><em>Broker</em></strong>类中定义了<em>order_open</em>和<em>order_close</em>两个方法,内部根据<em>signal</em>的值封装了不同的处理逻辑。</p><p>summary.py文件中定义了<strong><em>Summary</em></strong>类来获取回测结果并且以属性方式提供，performance.py中则定义了许多风险收益指标计算和绘图的功能函数。</p><p>具体项目代码可以访问个人github地址：<a href="https://github.com/jeremytian2019/markettiming" target="_blank" rel="noopener">https://github.com/jeremytian2019/markettiming</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本项目是一个简单的指数择时回测框架，整个框架结构如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;backtest/&lt;/p&gt;
+&lt;p&gt;-strategy.py&lt;/p&gt;
+&lt;p&gt;-broker.py&lt;/p&gt;
+&lt;p&gt;-summary.py&lt;/p&gt;
+&lt;p&gt;-performance.py
+      
+    
+    </summary>
+    
+      <category term="量化交易" scheme="http://yoursite.com/categories/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/"/>
+    
+    
+      <category term="量化投资" scheme="http://yoursite.com/tags/%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从主动管理基本定律看2018年Alpha策略收益</title>
+    <link href="http://yoursite.com/2019/01/08/%E4%BB%8E%E4%B8%BB%E5%8A%A8%E7%AE%A1%E7%90%86%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B%E7%9C%8B2018%E5%B9%B4Alpha%E7%AD%96%E7%95%A5%E6%94%B6%E7%9B%8A/"/>
+    <id>http://yoursite.com/2019/01/08/从主动管理基本定律看2018年Alpha策略收益/</id>
+    <published>2019-01-07T18:26:44.000Z</published>
+    <updated>2019-01-07T18:29:48.750Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="因子分析" scheme="http://yoursite.com/categories/%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="alpha策略" scheme="http://yoursite.com/tags/alpha%E7%AD%96%E7%95%A5/"/>
+    
+      <category term="主动管理基本定律" scheme="http://yoursite.com/tags/%E4%B8%BB%E5%8A%A8%E7%AE%A1%E7%90%86%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>实证资产定价与机器学习</title>
